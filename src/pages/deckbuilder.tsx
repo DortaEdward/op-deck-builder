@@ -2,9 +2,19 @@ import Image from "next/image";
 import { useState } from 'react';
 import cardData from '../data/cards.json';
 
+/*
+  deck type
+  card
+  quantity
+*/
+
 export default function DeckBuilder() {
-  const [deck, setDeck] = useState([]);
+  const [deck, setDeck] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('')
+  const [active, setActive] = useState<string>('');
+  const addToDeck = (card:any) => {
+    setDeck(prev => [...prev, card])
+  };
 
   return (
     <div className="flex w-full h-full justify-center gap-4 px-6">
@@ -13,7 +23,17 @@ export default function DeckBuilder() {
           <p>Display Card Section</p>
         </div>
         <div className="flex flex-wrap items-center gap-1">
-
+          {
+            active
+            ? 
+              <div className="flex flex-col justify-center w-full">
+                <Image src={`/images/${active.image}`} width={180} height={150} alt={active.name} className=' rounded' />
+                <p>{active.name}</p>
+                <p>{active.color}</p>
+                <p>{active.effect}</p>
+              </div>
+            : <></>
+          }
         </div>
       </div>
       {/* mid */}
@@ -25,7 +45,21 @@ export default function DeckBuilder() {
           <p>Don: 0</p>
         </div>
         <div className="flex flex-wrap items-center gap-1">
-
+          {
+            deck
+              ? deck.map(card => {
+                return (
+                  <div key={card.setId}>
+                    <Image
+                      src={`/images/${card.image}`}
+                      width={76} height={140}
+                      alt={card.name} />
+                  </div>
+                )
+              })
+              :
+              <></>
+          }
         </div>
       </div>
 
@@ -43,7 +77,7 @@ export default function DeckBuilder() {
             <button>Search</button>
           </div>
           <div className="flex gap-4">
-            <fieldset className="flex gap-1 items-center">
+            {/* <fieldset className="flex gap-1 items-center">
               <label htmlFor="card_type">Card Type</label>
               <select name="card_type" id='card_type' className="h-[40px] text-black outline-none rounded-lg">
                 <option value="all">All</option>
@@ -60,7 +94,6 @@ export default function DeckBuilder() {
                 <option value="blue">Blue</option>
                 <option value="yellow">Yellow</option>
                 <option value="black">Black</option>
-                {/* <option value="leader"></option> */}
               </select>
             </fieldset>
             <fieldset className="flex gap-1 items-center">
@@ -70,18 +103,25 @@ export default function DeckBuilder() {
                 <option value="character">Charcter</option>
                 <option value="event">Event</option>
               </select>
-            </fieldset>
+            </fieldset> */}
           </div>
         </div>
         <div className="px-2 overflow-auto relative">
           <p className="my-2 font-medium sticky top-0 bg-slate-900 py-1">Results: {cardData.length} cards</p>
           <div>
-            <div className=" grid grid-cols-6 gap-1 py-3">
+            <div className=" grid grid-cols-4 gap-1 py-3">
               {
-                cardData.map((card) => {
+                cardData.filter(card => card.name.toLowerCase().includes(inputValue)).map((card) => {
                   return (
-                    <div key={card.setId}>
-                      <Image src={`/images/${card.image}`} alt={card.setId} width={120} height={160} />
+                    <div key={card.setName + card.cardIndex}>
+                      <Image
+                        onMouseEnter={() => setActive(card)}
+                        src={`/images/${card.image}`}
+                        alt={card.setId}
+                        width={120}
+                        height={160}
+                        onClick={() => addToDeck(card)}  
+                      />
                     </div>
                   )
                 })
@@ -89,14 +129,7 @@ export default function DeckBuilder() {
             </div>
           </div>
         </div>
-        <div className=" w-full py-4 flex gap-4 items-center justify-center">
-          <div>prev</div>
-          <ul className="flex gap-2 items-center">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-          </ul>
-          <div>next</div>
+        <div className=" w-full my-1">
         </div>
       </div>
     </div>

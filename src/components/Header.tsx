@@ -10,7 +10,6 @@ export default function Header() {
   const handleToggle = () => {
     setToggle(prev => !prev)
   }
-  console.log('Session?', session)
   return (
     <div className="flex items-center justify-between px-6 h-[92px] bg-slate-800">
       <div className="flex items-center gap-2">
