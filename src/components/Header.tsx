@@ -6,10 +6,6 @@ import { useState } from 'react';
 export default function Header() {
   const { data: session } = useSession();
   const [toggle, setToggle] = useState(false);
-
-  const handleToggle = () => {
-    setToggle(prev => !prev)
-  }
   return (
     <div className="flex items-center justify-between px-6 h-[92px] bg-slate-800">
       <div className="flex items-center gap-2">
@@ -28,9 +24,9 @@ export default function Header() {
                   toggle
                     ?
                     <div className='absolute right-0 w-40 top-[4.5rem] bg-slate-800 flex flex-col gap-4 items-center z-[100]'>
-                      <Link href={'/deckbuilder'} className='py-4'>DeckBuilder</Link>
-                      <Link href={'/decks'} className='py-4'>View Decks</Link>
-                      <Link href={'/settings'} className='py-4'>Setting</Link>
+                      <Link onClick={() => setToggle(false)} href={'/deckbuilder'} className='py-4'>DeckBuilder</Link>
+                      <Link onClick={() => setToggle(false)} href={'/decks'} className='py-4'>View Decks</Link>
+                      <Link onClick={() => setToggle(false)} href={'/settings'} className='py-4'>Setting</Link>
                       <div onClick={() => signOut()} className='py-4'>Sign Out</div>
                     </div>
                     :
@@ -39,16 +35,20 @@ export default function Header() {
                 {
                   toggle
                     ? <MdExpandLess size={28}
-                      onClick={handleToggle}
+                      onClick={() => setToggle(prev => !prev)}
                     />
                     : <MdExpandMore size={28}
-                      onClick={handleToggle}
+                      onClick={() => setToggle(prev => !prev)}
                     />
 
                 }
               </div>
             </div>
-            : <p onClick={() => signIn()}>Sign In</p>
+            :
+            <div className='flex gap-4'>
+            <Link href={'/deckbuilder'}>Deck Builder</Link>
+             <p onClick={() => signIn()}>Sign In</p>
+            </div>
         }
       </div>
     </div >
