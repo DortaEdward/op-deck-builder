@@ -9,17 +9,16 @@ type Props = {
 
 export default function DeckBuilderSearch({ inputValue, setInputValue, cardData, setActive, addDeck }: Props) {
   return (
-    <div className="w-[20%] h-[600px] outline rounded-lg flex flex-col items-center justify-between overflow-hidden">
-      <div className="p-2 flex flex-col items-center gap-4">
-        <div className="">
+    <div className="w-[20%] h-[600px] outline rounded-lg flex flex-col items-center justify-between overflow-hidden shadow-lg">
+      <div className="p-2 flex flex-col items-center gap-4 w-full">
+        <div className="w-full">
           <input
             type="text"
             placeholder="Search"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            className="p-2 w-2/3 text-black outline-none"
+            className="p-2 w-full text-black outline-none rounded"
           />
-          <button>Search</button>
         </div>
       </div>
       <div className="px-2 overflow-auto relative">

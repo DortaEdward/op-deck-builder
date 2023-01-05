@@ -5,7 +5,7 @@ type Props = {
 
 export default function ActiveCard({active}:Props) {
   return (
-    <div className="w-[20%] h-[600px] outline rounded-lg p-2 flex flex-col items-center gap-2">
+    <div className="w-[20%] h-[600px] outline rounded-lg p-2 flex flex-col items-center gap-2 shadow-lg">
       <div className="flex flex-wrap items-center gap-1">
         {
           active

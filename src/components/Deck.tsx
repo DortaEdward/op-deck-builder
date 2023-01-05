@@ -8,7 +8,7 @@ type Props = {
 
 export default function Deck({ deck, setActive, addDeck }: Props) {
   return (
-    <div className="w-[60%] h-[600px] outline rounded-lg p-2 overflow-auto">
+    <div className="w-[60%] h-[600px] outline rounded-lg p-2 overflow-auto shadow-lg">
       <div className="flex gap-4">
         <p>Leader: 0</p>
         <p>Characters: 0</p>
