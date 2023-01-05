@@ -7,7 +7,7 @@ type Props = {
   className?: string,
 }
 
-export default function Card({card, setActive, className, addDeck}: Props) {
+export default function Card({card, setActive= () => {return}, className, addDeck}: Props) {
   return (
     <Image
       onMouseEnter={() => setActive(card)}

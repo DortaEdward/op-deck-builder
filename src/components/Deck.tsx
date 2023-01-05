@@ -20,12 +20,6 @@ export default function Deck({ deck, setActive, addDeck }: Props) {
           deck
             ? Object.keys(deck).map((keyname, i) => {
               return (<div key={i}>
-                {/* <Image
-                src={`/images/${deck[keyname].image}`}
-                width={76} height={140}
-                alt={deck[keyname].name}
-                className=' rounded'
-              /> */}
                 <Card
                   setActive={setActive}
                   card={deck[keyname]}
