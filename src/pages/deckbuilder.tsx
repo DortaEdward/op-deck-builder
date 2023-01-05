@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { useState } from 'react';
 import cardData from '../data/cards.json';
+import Deck from "../components/Deck";
+import Card from "../components/Card";
 
 export default function DeckBuilder() {
   const [deck, setDeck] = useState({});
@@ -43,12 +45,9 @@ export default function DeckBuilder() {
             active
               ?
               <div className="flex flex-col justify-center w-full">
-                <Image
-                  src={`/images/${active.image}`}
-                  width={180}
-                  height={150}
-                  alt={active.name}
-                  className=' rounded w-4/5 mx-auto my-2'
+                <Card
+                  card={active}
+                  className={'rounded w-4/5 mx-auto my-2'}
                 />
                 <p className='text-lg font-medium text-center'>{active.name}</p>
                 <div className="flex gap-2 mx-auto">
@@ -71,32 +70,11 @@ export default function DeckBuilder() {
         </div>
       </div>
       {/* mid */}
-      <div className="w-[60%] h-[600px] outline rounded-lg p-2 overflow-auto">
-        <div className="flex gap-4">
-          <p>Leader: 0</p>
-          <p>Characters: 0</p>
-          <p>Event: 0</p>
-          <p>Don: 0</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-1">
-          {
-            deck
-              ? Object.keys(deck).map((keyname, i) => {
-                return (<div key={i}>
-                  <Image
-                    src={`/images/${deck[keyname].image}`}
-                    width={76} height={140}
-                    alt={deck[keyname].name}
-                    className=' rounded'
-                  />
-                  <p>{deck[keyname].qty}</p>
-                </div>)
-              })
-              : <></>
-          }
-        </div>
-      </div>
-
+      <Deck
+        deck={deck}
+        setActive={setActive}
+        addDeck={addDeck}
+      />
       {/* Search */}
       <div className="w-[20%] h-[600px] outline rounded-lg flex flex-col items-center justify-between overflow-hidden">
         <div className="p-2 flex flex-col items-center gap-4">
@@ -119,15 +97,10 @@ export default function DeckBuilder() {
                 cardData.filter(card => card.name.toLowerCase().includes(inputValue)).map((card) => {
                   return (
                     <div key={card.setName + card.cardIndex}>
-                      <Image
-                        onMouseEnter={() => setActive(card)}
-                        src={`/images/${card.image}`}
-                        alt={card.setId}
-                        width={120}
-                        height={160}
-                        className=' rounded'
-                        // onClick={() => addToODeck(card)} 
-                        onClick={() => addDeck(card)}
+                      <Card
+                        card={card}
+                        setActive={setActive}
+                        addDeck={addDeck}
                       />
                     </div>
                   )
