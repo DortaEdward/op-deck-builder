@@ -11,11 +11,25 @@ export const exampleRouter = createTRPCRouter({
       };
     }),
 
+  seedSets: publicProcedure
+    .input(z.object({
+      sets: z.object({
+        name: z.string(),
+        setId: z.string(),
+        image: z.string().nullable(),
+      }).array()
+    })) 
+    .mutation(({ctx,input}) => {
+      console.log('inputs ====',input.sets);
+      return input.sets
+      // return ctx.prisma.set.createMany(input.sets)
+    }),
+
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.example.findMany();
+    return ctx.prisma.set.findMany();
   }),
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
-});
+}); 

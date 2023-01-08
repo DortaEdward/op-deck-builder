@@ -42,6 +42,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     Deck          Deck[]
+    role          Role      @default(USER)
 }
 
 model VerificationToken {
@@ -54,38 +55,59 @@ model VerificationToken {
 
 model Card {
     id           String   @id @default(cuid())
-    cardIndex    Int
+    name         String
+    cardIndex    String
     set          Set      @relation(fields: [setId], references: [id])
     setId        String
+    setNumber    String
     color        String
-    cost         Int?
-    name         String
-    traits       String[]
-    power        Int?
-    counterPower Int?
-    life         Int?
+    cost         String?
+    traits       String?
+    power        String?
+    counterPower String?
+    life         String?
     artist       String?
     effect       String?
     image        String?
-    Deck         Deck[]
+    cardType     CardType @relation(fields: [cardTypeId], references: [id])
+    cardTypeId   String
+    rarity       Rarity   @relation(fields: [rarityId], references: [id])
+    rarityId     String
 }
 
 model Set {
-    id    String  @id @default(cuid())
-    name  String
-    setId String
-    image String?
-    Card  Card[]
+    id        String  @id @default(cuid())
+    name      String
+    setNumber String  @unique
+    image     String?
+    Card      Card[]
 }
 
 model Deck {
-    id     String @id @default(cuid())
-    name   String
-    author User   @relation(fields: [userId], references: [id])
-    userId String
-    userImage String?
-    cards  Card   @relation(fields: [cardId], references: [id])
-    cardId String
+    id          String  @id @default(cuid())
+    name        String
+    author      User    @relation(fields: [userId], references: [id])
+    userId      String
+    userImage   String?
     description String?
     leaderImage String?
+    deck        Json
+}
+
+model CardType {
+    id   String @id @default(cuid())
+    name String
+    Card Card[]
+}
+
+model Rarity {
+    id   String @id @default(cuid())
+    name String
+    Card Card[]
+}
+
+enum Role {
+    ADMIN
+    USER
+    MOD
 }

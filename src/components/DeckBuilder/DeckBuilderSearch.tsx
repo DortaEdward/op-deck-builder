@@ -1,4 +1,4 @@
-import Card from './Card';
+import Card from '../Card';
 type Props = {
   inputValue: any,
   setInputValue: any,
@@ -24,7 +24,7 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
       <div className="px-2 overflow-auto relative">
         <p className="my-2 font-medium sticky top-0 bg-slate-900 py-1">Results: {cardData.length} cards</p>
         <div>
-          <div className=" grid grid-cols-4 gap-1 py-3">
+          <div className=" grid grid-cols-4 gap-1">
             {
               cardData.filter(card => card.name.toLowerCase().includes(inputValue)).map((card) => {
                 return (
@@ -41,7 +41,7 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
           </div>
         </div>
       </div>
-      <div className=" w-full my-1">
+      <div className=" w-full my-2">
       </div>
     </div>
   )

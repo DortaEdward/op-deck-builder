@@ -13,10 +13,9 @@ export default function Card({card, setActive= () => {return}, className, addDec
       onMouseEnter={() => setActive(card)}
       src={`/images/${card.image}`}
       alt={card.setId}
-      width={120}
+      width={80}
       height={160}
       className={className ? className :`rounded`}
-      // onClick={() => addToODeck(card)} 
       onClick={() => addDeck(card)}
     />
   )

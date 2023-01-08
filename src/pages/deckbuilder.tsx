@@ -4,41 +4,46 @@ import { useState } from 'react';
 import cardData from '../data/cards.json';
 
 // Components
-import Deck from "../components/Deck";
-import DeckBuilderSearch from "../components/DeckBuilderSearch";
-import ActiveCard from "../components/ActiveCard";
+import Deck from "../components/DeckBuilder/Deck";
+import DeckBuilderSearch from "../components/DeckBuilder/DeckBuilderSearch";
+import ActiveCard from "../components/DeckBuilder/ActiveCard";
 
 export default function DeckBuilder() {
   const [deck, setDeck] = useState({});
+  const [deckTotal, setDeckTotal] = useState(0);
   const [inputValue, setInputValue] = useState('')
   const [active, setActive] = useState<string>('');
-  
+
   function checkInDeck(id: string) {
     return Object.keys(deck).findIndex(key => key === id);
   }
 
   const addDeck = (value: any) => {
-    const inDeck = checkInDeck(value.setId);
-    console.log('deck before update?', deck);
+    if (deckTotal >= 50) return;
+    const inDeck = checkInDeck(value.setNumber);
     if (inDeck === -1) {
+      console.log(value)
       setDeck(prev => ({
         ...prev,
-        [value.setId]: {
+        [value.setNumber]: {
           ...value,
           qty: 1
         },
       }))
+      setDeckTotal(prev => prev + 1)
     } else {
-      const qty = deck[value.setId].qty + 1
+      const qty = deck[value.setNumber].qty + 1
       if (qty > 4) return;
       setDeck(prev => ({
         ...prev,
-        [value.setId]: {
+        [value.setNumber]: {
           ...value,
           qty: qty
         },
       }))
+      setDeckTotal(prev => prev + 1)
     }
+    // console.log('deck?', deck)
   };
 
   return (

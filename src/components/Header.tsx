@@ -14,6 +14,7 @@ export default function Header() {
       <div className='flex items-center gap-1'>
         <div className='flex items-center justify-center gap-3  relative'>
           <Link href={'/deckbuilder'} className='hover:text-white text-gray-400 transition'>Deck Builder</Link>
+          <Link href={'/database'} className='hover:text-white text-gray-400 transition'>Database</Link>
           <Link href={'/decks'} className='hover:text-white text-gray-400 transition' >Decks</Link>
           {
             session
