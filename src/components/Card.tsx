@@ -1,8 +1,8 @@
 import Image from "next/image";
-
+import type { CardType } from "../types/DeckBuilder";
 type Props = {
   setActive?: any,
-  card: any,
+  card: CardType,
   addDeck?: any,
   className?: string,
 }

@@ -1,7 +1,9 @@
 import Image from "next/image";
-import Card from "../CardImage";
+import Card from "../Card";
+import { CardType, DeckType } from "../../types/DeckBuilder";
+
 type Props = {
-  deck: any,
+  deck: DeckType,
   setActive?: any,
   addDeck?: any,
 }
@@ -16,24 +18,22 @@ export default function Deck({ deck, setActive, addDeck }: Props) {
           <p>Event: 0</p>
           <p>Don: 0</p>
         </div>
-        <div className="flex flex-wrap items-center gap-1">
+        <div className="grid lg:grid-cols-10 md:grid-cols-7 sm:grid-cols-5 gap-1">
           {
             deck
-              ? Object.keys(deck).map((keyname, i) => {
-                return (
-
+            ?
+              Object.keys(deck).map((key, i) => {
+                return(
                   <div key={i}>
                     <Card
-                      setActive={setActive}
-                      card={deck[keyname]}
-                      addDeck={addDeck}
+                      card={deck[key]}
                     />
-                    <p>{deck[keyname].qty}</p>
-                  </div>)
+                  </div>
+                )
               })
-              : <></>
+            :
+              <></>
           }
-
         </div>
       </div>
       <div>Leader</div>
@@ -41,3 +41,24 @@ export default function Deck({ deck, setActive, addDeck }: Props) {
   )
 }
 
+
+
+
+// <div className="flex flex-wrap items-center gap-1">
+// {
+//   deck
+//     ? Object.keys(deck).map((keyname, i) => {
+//       return (
+
+//         <div key={i}>
+//           <Card
+//             setActive={setActive}
+//             card={deck[keyname]}
+//             addDeck={addDeck}
+//           />
+//           <p>{deck[keyname].qty}</p>
+//         </div>)
+//     })
+//     : <></>
+// }
+// </div>

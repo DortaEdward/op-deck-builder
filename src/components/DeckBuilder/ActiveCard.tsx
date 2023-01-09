@@ -28,7 +28,7 @@ export default function ActiveCard({active}:Props) {
                 }
               </div>
               <div className="overflow-auto">
-                <p className="bg-slate-700 p-2 rounded-lg">{active.effect}</p>
+                <p className="bg-slate-700 p-2 rounded-lg text-sm md:text-base">{active.effect}</p>
               </div>
             </div>
             : <></>

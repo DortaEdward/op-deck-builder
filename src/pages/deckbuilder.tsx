@@ -3,48 +3,45 @@ import { useState } from 'react';
 // Card Json need to be replaced when cards are in db
 import cardData from '../data/cards.json';
 
+// Types
+import type { CardType } from '../types/DeckBuilder';
+
 // Components
 import Deck from "../components/DeckBuilder/Deck";
 import DeckBuilderSearch from "../components/DeckBuilder/DeckBuilderSearch";
 import ActiveCard from "../components/DeckBuilder/ActiveCard";
 
+//Trcp
+import { api } from '../utils/api';
+
+// Component
 export default function DeckBuilder() {
-  const [deck, setDeck] = useState({});
-  const [deckTotal, setDeckTotal] = useState(0);
+  // Internal State
+  const [deck, setDeck] = useState<CardType[]>([]);
   const [inputValue, setInputValue] = useState('')
   const [active, setActive] = useState<string>('');
 
-  function checkInDeck(id: string) {
-    return Object.keys(deck).findIndex(key => key === id);
-  }
+  const {data, isLoading} = api.card.getAllCards.useQuery({take:40})
+
+  
+  // function checkInDeck(id: string) {
+  //   return deck.some(card => card.setNumber === id)
+  // }
 
   const addDeck = (value: any) => {
-    if (deckTotal >= 50) return;
-    const inDeck = checkInDeck(value.setNumber);
-    if (inDeck === -1) {
-      console.log(value)
-      setDeck(prev => ({
-        ...prev,
-        [value.setNumber]: {
-          ...value,
-          qty: 1
-        },
-      }))
-      setDeckTotal(prev => prev + 1)
-    } else {
-      const qty = deck[value.setNumber].qty + 1
-      if (qty > 4) return;
-      setDeck(prev => ({
-        ...prev,
-        [value.setNumber]: {
-          ...value,
-          qty: qty
-        },
-      }))
-      setDeckTotal(prev => prev + 1)
+    if (deck.length >= 50) return;
+    const cardCount = deck.filter(x => x === value).length;
+    if(cardCount < 4) {
+      setDeck((prev) => [...prev,value])
     }
-    // console.log('deck?', deck)
   };
+
+  function formateDeck(){
+    console.log('working')
+    console.log(deck.reduce((a,v) => ({...a,[v]:v}),{}))
+  }
+
+  // if(isLoading) return<>loading</>
 
   return (
     <div className="flex w-full h-full justify-center gap-4 px-6">
@@ -56,13 +53,14 @@ export default function DeckBuilder() {
         setActive={setActive}
         addDeck={addDeck}
       />
-      <DeckBuilderSearch
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        cardData={cardData}
-        setActive={setActive}
-        addDeck={addDeck}
-      />
+        <DeckBuilderSearch
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          cardData={data}
+          setActive={setActive}
+          addDeck={addDeck}
+          isLoading={isLoading}
+        />
     </div>
   )
 }

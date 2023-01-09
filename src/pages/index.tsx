@@ -6,7 +6,6 @@ import FeaturedDecks from "../components/FeaturedDecks";
 const Home: NextPage = () => {
 
   // const {data, isLoading} = api.example.getAll.useQuery();
-  const seedCards = api.card.seedCards.useMutation();
   
   return (
     <>
@@ -28,7 +27,6 @@ const Home: NextPage = () => {
             height={100}
             className='rounded-lg mx-auto'
           />
-          <button onClick={()=>seedCards.mutate()}>Seed Cards</button>
         </section>
         <section className="w-full flex flex-col justify-center">
           <h3 className="text-2xl my-4">Popular Decks</h3>

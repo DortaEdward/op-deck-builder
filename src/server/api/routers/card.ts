@@ -17,10 +17,12 @@ export const cardRouter = createTRPCRouter({
       return ctx.prisma.card.createMany({ data: cards });
     }),
 
-  getAllCards: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.card.findMany({
-      take:22
-    });
+  getAllCards: publicProcedure
+  // .input(z.object({
+  //   take:z.number()
+  // }))
+  .query(({ ctx }) => {
+    return ctx.prisma.card.findMany();
   }),
 
   getSecretMessage: protectedProcedure.query(() => {
