@@ -1,5 +1,4 @@
 import { createTRPCRouter } from "./trpc";
-import { exampleRouter } from "./routers/example";
 import { cardRouter } from "./routers/card";
 
 /**
@@ -8,7 +7,6 @@ import { cardRouter } from "./routers/card";
  * All routers added in /api/routers should be manually added here
  */
 export const appRouter = createTRPCRouter({
-  example: exampleRouter,
   card: cardRouter
 });
 

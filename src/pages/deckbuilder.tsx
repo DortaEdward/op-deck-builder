@@ -1,8 +1,5 @@
 import { useState } from 'react';
 
-// Card Json need to be replaced when cards are in db
-import cardData from '../data/cards.json';
-
 // Types
 import type { CardType } from '../types/DeckBuilder';
 
@@ -20,31 +17,39 @@ export default function DeckBuilder() {
   const [deck, setDeck] = useState<CardType[]>([]);
   const [inputValue, setInputValue] = useState('')
   const [active, setActive] = useState<string>('');
+  const [leader, setLeader] = useState<CardType>();
 
-  const {data, isLoading} = api.card.getAllCards.useQuery({take:40})
+  const { data, isLoading } = api.card.getAllCards.useQuery()
 
-  
-  // function checkInDeck(id: string) {
-  //   return deck.some(card => card.setNumber === id)
-  // }
-
-  const addDeck = (value: any) => {
-    if (deck.length >= 50) return;
-    const cardCount = deck.filter(x => x === value).length;
-    if(cardCount < 4) {
-      setDeck((prev) => [...prev,value])
+  const removeFromDeck = (id: string) => {
+    // const inDeck = deck.some(card => card.setNumber === id)
+    const inDeck = deck.findIndex(card => card.setNumber === id);
+    if(inDeck >= 0){
+      setDeck(prev => prev.filter((_,i) => i !== inDeck))
+      
     }
-  };
-
-  function formateDeck(){
-    console.log('working')
-    console.log(deck.reduce((a,v) => ({...a,[v]:v}),{}))
   }
 
-  // if(isLoading) return<>loading</>
+  const addDeck = (value: CardType) => {
+    if (deck.length > 50) return;
+    const cardCount = deck.filter(x => x === value).length;
+    if(value.cardTypeId === "clcku3jcg000guayie2k1vpoh"){
+      setLeader(value)
+    }
+    else if(cardCount < 4) {
+      setDeck((prev) => [...prev,value])
+    }
+    
+  };
+
+  // function formateDeck(){
+  //   console.log('working')
+  //   console.log(deck.reduce((a,v) => ({...a,[v]:v}),{}))
+  // }
+
 
   return (
-    <div className="flex w-full h-full justify-center gap-4 px-6">
+    <div className="flex w-full h-[660px] justify-center gap-4 px-6 my-4">
       <ActiveCard
         active={active}
       />
@@ -52,6 +57,10 @@ export default function DeckBuilder() {
         deck={deck}
         setActive={setActive}
         addDeck={addDeck}
+        removeFromDeck={removeFromDeck}
+        leader={leader}
+        deckTotal={deck.length}
+        setLeader={setLeader}
       />
         <DeckBuilderSearch
           inputValue={inputValue}
