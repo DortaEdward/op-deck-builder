@@ -28,10 +28,11 @@ export default function ActiveCard({active}:Props) {
                   })
                 }
               </div>
-              <div>Traits: {active.traits}</div>
+              <div>Set Number: {active.setNumber}</div>
               <div>Cost: {active.cost}</div>
               <div>Power: {active.power}</div>
               <div>Counter Power: {active.couterPower}</div>
+              <div>Traits: {active.traits}</div>
               <div className="overflow-auto">
                 <p className="bg-slate-700 p-2 rounded-lg text-sm md:text-base">{active.effect}</p>
               </div>

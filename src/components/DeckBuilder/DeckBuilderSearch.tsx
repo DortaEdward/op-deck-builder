@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import cardDataJSON from '../../data/cards.json';
+import { traits } from '../../data/trait';
 import type { CardType } from '../../types/DeckBuilder';
 import Card from '../Card';
 type Props = {
@@ -10,6 +13,13 @@ type Props = {
 }
 
 export default function DeckBuilderSearch({ inputValue, setInputValue, cardData, setActive, addDeck, isLoading }: Props) {
+
+  const [color, setColor] = useState<string>('all');
+  const [cost, setCost] = useState<string>('all');
+  const [cardType, setCardType] = useState<string>('all');
+  const [power, setPower] = useState<string>('all');
+  const [counterPower, setCounterPower] = useState<string>('all');
+  const [trait, setTrait] = useState<string>('all');
 
   return (
     <div className="w-[30%] bg-slate-800 h-full rounded-lg flex flex-col overflow-hidden shadow-lg">
@@ -24,11 +34,16 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
             className="p-2 w-full text-black outline-none rounded"
           />
           <div className='w-full'>
-            <p>Filters:</p>
-            <div className='flex gap-2'>
+            <div className='flex gap-2 my-2'>
               <div className='flex flex-col'>
                 <label htmlFor="color">Color</label>
-                <select name="Color" id='color' className='bg-slate-600 outline-none cursor-pointer p-1 rounded'>
+                <select
+                  name="Color"
+                  id='color'
+                  className='bg-slate-600 outline-none cursor-pointer p-1 rounded'
+                  value={color}
+                  onChange={e => setColor(e.target.value)}
+                >
                   <option value="all">All</option>
                   <option value="red">Red</option>
                   <option value="green">Green</option>
@@ -40,7 +55,12 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
               </div>
               <div className='flex flex-col'>
                 <label htmlFor="cost">Cost</label>
-                <select name="cost" className='bg-slate-600 outline-none cursor-pointer p-1 rounded'>
+                <select
+                  name="cost"
+                  className='bg-slate-600 outline-none cursor-pointer p-1 rounded'
+                  value={cost}
+                  onChange={e => setCost(e.target.value)}
+                >
                   <option value="all">All</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -56,7 +76,12 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
               </div>
               <div className='flex flex-col'>
                 <label htmlFor="cardType">Card Type</label>
-                <select name="cardType" className='bg-slate-600 outline-none cursor-pointer p-1 rounded'>
+                <select
+                  name="cardType"
+                  className='bg-slate-600 outline-none cursor-pointer p-1 rounded'
+                  value={cardType}
+                  onChange={e => setCardType(e.target.value)}
+                >
                   <option value="all">All</option>
                   <option value="leader">Leader</option>
                   <option value="character">Character</option>
@@ -64,30 +89,52 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
                 </select>
               </div>
             </div>
-            <div className='flex flex-wrap gap-1 mt-2 text-black'>
-              <div>
-                <input
-                  className='rounded px-1 py-[4px] outline-none'
-                  type="number"
-                  placeholder='Power'
-
-                />
+            <div className='flex flex-wrap gap-1 mt-2'>
+              <div className='flex flex-col'>
+                <label htmlFor="power">Power</label>
+                <select
+                  name="power"
+                  id="power"
+                  className='rounded px-1 py-[4px] outline-none bg-slate-600'
+                  value={power}
+                  onChange={e => setPower(e.target.value)}  
+                >
+                  <option value="all">All</option>
+                  <option value="1000">1000</option>
+                  <option value="2000">2000</option>
+                  <option value="3000">3000</option>
+                  <option value="4000">4000</option>
+                  <option value="5000">5000</option>
+                  <option value="6000">6000</option>
+                  <option value="7000">7000</option>
+                  <option value="8000">8000</option>
+                  <option value="9000">9000</option>
+                  <option value="10000">10000</option>
+                  <option value="11000">11000</option>
+                  <option value="12000">12000</option>
+                </select>
               </div>
-              <div>
-                <input
-                  className='rounded px-1 py-[4px] outline-none'
-                  type="number"
-                  placeholder='Counter Power'
-
-                />
+              <div className='flex flex-col'>
+                <label htmlFor="counterPower">Counter Power</label>
+                <select name="counterPower" id="counterPower" className='rounded px-1 py-[4px] outline-none bg-slate-600'>
+                  <option value="all">All</option>
+                  <option value="1000">1000</option>
+                  <option value="2000">2000</option>
+                </select>
               </div>
-              <div>
-                <input
-                  className='rounded px-1 py-[4px] outline-none'
-                  type="text"
-                  placeholder='Trait'
+              <div className='flex flex-col'>
+                <label htmlFor="trait">Trait</label>
+                <select name="trait" id="trait" className='rounded px-1 py-[4px] outline-none bg-slate-600'>
+                  <option value="all">All</option>
 
-                />
+                  {
+                    traits.map(trait => {
+                      return (
+                        <option key={trait} value={trait}>{trait}</option>
+                      )
+                    })
+                  }
+                </select>
               </div>
             </div>
           </div>
@@ -97,8 +144,11 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
       {
         isLoading
           ? <div className='h-full w-full flex items-center justify-center'>
-              <p>loading</p>
+            {/* <p>loading</p> */}
+            <div id='card'>
+              <div id='front' className="bg-[url('/images/card.png')] w-[190px] h-[268px] rounded animate-pulse"></div>
             </div>
+          </div>
           :
           <>
             <div className="px-2 overflow-auto flex flex-col">
@@ -106,17 +156,23 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
               <div>
                 <div className=" grid grid-cols-5 gap-[2px]">
                   {
-                    cardData.filter((card: { name: string; }) => card.name.toLowerCase().includes(inputValue)).map((card: CardType) => {
-                      return (
-                        <div key={card.setNumber + card.cardIndex}>
-                          <Card
-                            card={card}
-                            setActive={setActive}
-                            addDeck={addDeck}
-                          />
-                        </div>
-                      )
-                    })
+                    cardData
+                      .filter((card: { name: string; }) => card.name.toLowerCase().includes(inputValue.toLowerCase()))
+                      .filter((card: { color: string; }) => color !== 'all' ? card.color.toLowerCase().includes(color) : card)
+                      // .filter((card: { cost: string; }) => cost !== 'all' ? card.cost.toLowerCase().includes(cost) : card)
+                      // .filter((card: { power?: string; }) => power !== 'all' ? card.power?.toLowerCase().includes(cost) : card)
+                      // .filter((card: { cardType: string; }) => cardType !== 'all' ? card.cardType.toLowerCase().includes(cardType) : card)
+                      .map((card: CardType) => {
+                        return (
+                          <div key={card.setNumber + card.cardIndex}>
+                            <Card
+                              card={card}
+                              setActive={setActive}
+                              addDeck={addDeck}
+                            />
+                          </div>
+                        )
+                      })
                   }
                 </div>
               </div>

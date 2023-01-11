@@ -20,7 +20,6 @@ export default function Card({ width, height, card, removeLeader, removeFromDeck
       removeFromDeck(card.setNumber)
     }
     if(removeLeader){
-      console.log('removing leader')
       removeLeader(null)
     }
   };
@@ -32,7 +31,7 @@ export default function Card({ width, height, card, removeLeader, removeFromDeck
       alt={card.setId}
       width={width ? width : 80}
       height={height? height : 180}
-      className={className ? className : `rounded`}
+      className={`cursor-pointer ${className ? className : `rounded`}`}
       onClick={() => handleClick()}
     />
   )
