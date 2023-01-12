@@ -58,6 +58,7 @@ export default function Deck({
               card={leader}
               removeFromDeck={removeFromDeck}
               removeLeader={setLeader}
+              setActive={setActive}
             />
             <div className="ml-4">
               <p>Leader: {leader.name}</p>

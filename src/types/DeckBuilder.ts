@@ -7,7 +7,7 @@ export type CardType = {
   cost: string;
   traits: string;
   power: string;
-  couterPower?: string;
+  counterPower?: string;
   life?: string;
   artist?: string;
   effect?: string;

@@ -1,25 +1,31 @@
-import { useState } from 'react';
-import cardDataJSON from '../../data/cards.json';
 import { traits } from '../../data/trait';
+import { cardType } from '../../data/cartType';
 import type { CardType } from '../../types/DeckBuilder';
 import Card from '../Card';
 type Props = {
-  inputValue: any,
-  setInputValue: any,
-  cardData: any,
-  setActive: any,
-  addDeck: any,
-  isLoading: boolean,
+  inputValue: string, setInputValue: any,
+  cardData: any, setActive: any,
+  addDeck: any, isLoading: boolean,
+  color: string; setColor: any;
+  cost: string; setCost: any;
+  cardTypes: string; setCardTypes: any;
+  power: string; setPower: any;
+  counterPower: string; setCounterPower: any;
+  trait: string; setTrait: any;
 }
 
-export default function DeckBuilderSearch({ inputValue, setInputValue, cardData, setActive, addDeck, isLoading }: Props) {
+export default function DeckBuilderSearch({
+  inputValue, setInputValue,
+  cardData, setActive,
+  addDeck, isLoading,
+  color, cost,
+  power, counterPower,
+  trait, setColor,
+  setCost, setPower,
+  setCounterPower, setTrait,
+  cardTypes, setCardTypes,
+}: Props) {
 
-  const [color, setColor] = useState<string>('all');
-  const [cost, setCost] = useState<string>('all');
-  const [cardType, setCardType] = useState<string>('all');
-  const [power, setPower] = useState<string>('all');
-  const [counterPower, setCounterPower] = useState<string>('all');
-  const [trait, setTrait] = useState<string>('all');
 
   return (
     <div className="w-[30%] bg-slate-800 h-full rounded-lg flex flex-col overflow-hidden shadow-lg">
@@ -79,13 +85,14 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
                 <select
                   name="cardType"
                   className='bg-slate-600 outline-none cursor-pointer p-1 rounded'
-                  value={cardType}
-                  onChange={e => setCardType(e.target.value)}
+                  value={cardTypes}
+                  onChange={e => setCardTypes(e.target.value)}
                 >
                   <option value="all">All</option>
                   <option value="leader">Leader</option>
                   <option value="character">Character</option>
                   <option value="event">Event</option>
+                  <option value="stage">Stage</option>
                 </select>
               </div>
             </div>
@@ -97,7 +104,7 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
                   id="power"
                   className='rounded px-1 py-[4px] outline-none bg-slate-600'
                   value={power}
-                  onChange={e => setPower(e.target.value)}  
+                  onChange={e => setPower(e.target.value)}
                 >
                   <option value="all">All</option>
                   <option value="1000">1000</option>
@@ -116,21 +123,36 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
               </div>
               <div className='flex flex-col'>
                 <label htmlFor="counterPower">Counter Power</label>
-                <select name="counterPower" id="counterPower" className='rounded px-1 py-[4px] outline-none bg-slate-600'>
+                <select
+                  name="counterPower"
+                  id="counterPower"
+                  className='rounded px-1 py-[4px] outline-none bg-slate-600'
+                  onChange={e => setCounterPower(e.target.value)}
+                  value={counterPower}
+                >
                   <option value="all">All</option>
+                  {/* <option value="null">Null</option> */}
                   <option value="1000">1000</option>
                   <option value="2000">2000</option>
                 </select>
               </div>
               <div className='flex flex-col'>
                 <label htmlFor="trait">Trait</label>
-                <select name="trait" id="trait" className='rounded px-1 py-[4px] outline-none bg-slate-600'>
+                <select
+                  name="trait"
+                  id="trait"
+                  className='rounded px-1 py-[4px] outline-none bg-slate-600'
+                  onChange={e => setTrait(e.target.value)}
+                  value={trait}
+                >
                   <option value="all">All</option>
 
                   {
                     traits.map(trait => {
                       return (
-                        <option key={trait} value={trait}>{trait}</option>
+                        <>
+                          <option key={trait} value={trait}>{trait}</option>
+                        </>
                       )
                     })
                   }
@@ -144,7 +166,6 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
       {
         isLoading
           ? <div className='h-full w-full flex items-center justify-center'>
-            {/* <p>loading</p> */}
             <div id='card'>
               <div id='front' className="bg-[url('/images/card.png')] w-[190px] h-[268px] rounded animate-pulse"></div>
             </div>
@@ -159,9 +180,13 @@ export default function DeckBuilderSearch({ inputValue, setInputValue, cardData,
                     cardData
                       .filter((card: { name: string; }) => card.name.toLowerCase().includes(inputValue.toLowerCase()))
                       .filter((card: { color: string; }) => color !== 'all' ? card.color.toLowerCase().includes(color) : card)
-                      // .filter((card: { cost: string; }) => cost !== 'all' ? card.cost.toLowerCase().includes(cost) : card)
-                      // .filter((card: { power?: string; }) => power !== 'all' ? card.power?.toLowerCase().includes(cost) : card)
-                      // .filter((card: { cardType: string; }) => cardType !== 'all' ? card.cardType.toLowerCase().includes(cardType) : card)
+                      .filter((card: { power: string; }) => power !== 'all' ? card.power?.toLowerCase().includes(power) : card)
+                      .filter((card: { counterPower: string; }) => counterPower !== 'all' ? card.counterPower?.toLowerCase().includes(counterPower) : card)
+                      .filter((card: { cost: string; }) => cost !== 'all' ? card.cost?.toLowerCase().includes(cost) : card)
+                      .filter((card: { traits: string; }) => trait !== 'all' ? card.traits?.toLowerCase().includes(trait.toLowerCase()) : card)
+
+                      .filter((card: { cardTypeId: string; }) => cardTypes !== 'all' ? card.cardTypeId?.toLowerCase().includes(cardType[cardTypes.toLowerCase()]) : card)
+
                       .map((card: CardType) => {
                         return (
                           <div key={card.setNumber + card.cardIndex}>

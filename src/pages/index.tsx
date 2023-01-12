@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       <div className="h-full w-full flex flex-col justify-center max-w-[1080px] items-center">
         <section className="flex flex-wrap items-center mx-auto gap-8">
           <div className="flex flex-col gap-4 items-center justify-center w-full">
-            <h1 className='text-5xl tracking-wide font-bold'>Welcome to Haki Builder</h1>
+            <h1 className='text-5xl tracking-wide font-bold text-center'>Welcome to Haki Builder</h1>
             <p className="text-lg text-gray-400">Your number one site for One Piece TCG Deck Building</p>
           </div>
           <Image
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
             className='rounded-lg mx-auto'
           />
         </section>
-        <section className="w-full flex flex-col justify-center">
+        <section className="w-full flex flex-col justify-center px-4">
           <h3 className="text-2xl my-4">Popular Decks</h3>
           <FeaturedDecks />
         </section>

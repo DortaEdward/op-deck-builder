@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Types
 import type { CardType } from '../types/DeckBuilder';
@@ -21,22 +21,32 @@ export default function DeckBuilder() {
   const [leader, setLeader] = useState<CardType>();
   const [toggleCreate, setToggle] = useState<boolean>(false);
 
-  const [deckName,setDeckName] = useState<string>()
+  const [color, setColor] = useState<string>('all');
+  const [cost, setCost] = useState<string>('all');
+  const [cardTypes, setCardTypes] = useState<string>('all');
+  const [power, setPower] = useState<string>('all');
+  const [counterPower, setCounterPower] = useState<string>('all');
+  const [trait, setTrait] = useState<string>('all');
+
+  const [deckName, setDeckName] = useState<string>()
   const [description, setDescription] = useState<string>()
 
+  // Session
   const { data: session } = useSession();
 
+  // Api
   const { data, isLoading } = api.card.getAllCards.useQuery();
   const createDeckMutation = api.deck.createDeck.useMutation();
 
-  const removeFromDeck = (id: string) => {
+  function removeFromDeck(id: string) {
     const inDeck = deck.findIndex(card => card.setNumber === id);
     if (inDeck >= 0) {
       setDeck(prev => prev.filter((_, i) => i !== inDeck))
     }
   }
 
-  const addDeck = (value: CardType) => {
+  function addDeck(value: CardType) {
+    console.log(value)
     if (deck.length >= 50) return;
     const cardCount = deck.filter(x => x === value).length;
     if (value.cardTypeId === "clcku3jcg000guayie2k1vpoh") {
@@ -49,13 +59,12 @@ export default function DeckBuilder() {
 
   const onToggle = () => {
     if (!session) return;
-    if(deck.length < 50) return;
+    if (deck.length < 50) return;
     setToggle(true);
   }
 
   async function createDeck() {
-    console.log('creating deck');
-    console.log(deck);
+    if (!leader) return;
     const payload = {
       name: deckName,
       deck: deck,
@@ -63,13 +72,13 @@ export default function DeckBuilder() {
       leaderImage: leader?.image,
       description: description,
     }
-    console.log(payload)
     try {
       createDeckMutation.mutate(payload);
     } catch (error) {
       console.log('There was an error?', error);
     }
-  }
+  };
+
   // function formateDeck(){
   //   console.log('working')
   //   console.log(deck.reduce((a,v) => ({...a,[v]:v}),{}))
@@ -98,6 +107,18 @@ export default function DeckBuilder() {
         setActive={setActive}
         addDeck={addDeck}
         isLoading={isLoading}
+        cardTypes={cardTypes}
+        color={color}
+        cost={cost}
+        power={power}
+        counterPower={counterPower}
+        trait={trait}
+        setColor={setColor}
+        setCost={setCost}
+        setPower={setPower}
+        setCounterPower={setCounterPower}
+        setTrait={setTrait}
+        setCardTypes={setCardTypes}
       />
       {
         toggleCreate
@@ -113,7 +134,7 @@ export default function DeckBuilder() {
                   className='w-[230px] rounded outline-none px-3 text-black bg-white'
                   disabled
                   value={session?.user?.name || ''}
-                  />
+                />
               </fieldset>
               <fieldset className='flex gap-2 text-2xl mx-auto'>
                 <label htmlFor="deckName" className='w-[150px]'>Deck Name:</label>
@@ -136,9 +157,9 @@ export default function DeckBuilder() {
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
                 />
-                
+
               </fieldset>
-              <button type='button' className='p-2 outline' onClick={()=>createDeck()}>Create</button>
+              <button type='button' className='p-2 outline' onClick={() => createDeck()}>Create</button>
             </form>
             <div className='p-4 bg-red-300' onClick={() => setToggle(false)}>Close</div>
           </div>
