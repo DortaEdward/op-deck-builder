@@ -33,6 +33,21 @@ export const deckRouter = createTRPCRouter({
 
   getAllDecks: publicProcedure
     .query(({ ctx }) => {
-      return ctx.prisma.deck.findMany();
+      // const decks = ctx.prisma.deck.findMany();
+      return ctx.prisma.deck.findMany({
+        include:{
+          author: true
+        }
+      });
     }),
+
+    getDeck: publicProcedure.input(
+      z.string()
+    ).query(({ctx, input}) => {
+      return ctx.prisma.deck.findUnique({
+        where:{
+          id: input
+        }
+      })
+    })
 }); 

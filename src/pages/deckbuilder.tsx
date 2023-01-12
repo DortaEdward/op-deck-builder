@@ -65,17 +65,19 @@ export default function DeckBuilder() {
 
   async function createDeck() {
     if (!leader) return;
-    const payload = {
-      name: deckName,
-      deck: deck,
-      userId: session?.user?.id,
-      leaderImage: leader?.image,
-      description: description,
-    }
-    try {
-      createDeckMutation.mutate(payload);
-    } catch (error) {
-      console.log('There was an error?', error);
+    if (session) {
+      try {
+        const payload = {
+          name: deckName,
+          deck: deck,
+          userId: session?.user?.id,
+          leaderImage: leader?.image,
+          description: description,
+        }
+        createDeckMutation.mutate(payload);
+      } catch (error) {
+        console.log('There was an error?', error);
+      }
     }
   };
 
@@ -99,6 +101,7 @@ export default function DeckBuilder() {
         deckTotal={deck.length}
         setLeader={setLeader}
         onToggle={onToggle}
+        session={session}
       />
       <DeckBuilderSearch
         inputValue={inputValue}

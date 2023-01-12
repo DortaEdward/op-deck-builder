@@ -171,40 +171,46 @@ export default function DeckBuilderSearch({
             </div>
           </div>
           :
-          <>
-            <div className="px-2 overflow-auto flex flex-col">
-              <p className="mb-2 font-medium">Results: {cardData.length} cards</p>
-              <div>
-                <div className=" grid grid-cols-5 gap-[2px]">
-                  {
-                    cardData
-                      .filter((card: { name: string; }) => card.name.toLowerCase().includes(inputValue.toLowerCase()))
-                      .filter((card: { color: string; }) => color !== 'all' ? card.color.toLowerCase().includes(color) : card)
-                      .filter((card: { power: string; }) => power !== 'all' ? card.power?.toLowerCase().includes(power) : card)
-                      .filter((card: { counterPower: string; }) => counterPower !== 'all' ? card.counterPower?.toLowerCase().includes(counterPower) : card)
-                      .filter((card: { cost: string; }) => cost !== 'all' ? card.cost?.toLowerCase().includes(cost) : card)
-                      .filter((card: { traits: string; }) => trait !== 'all' ? card.traits?.toLowerCase().includes(trait.toLowerCase()) : card)
+          cardData
+            ?
+            <>
+              <div className="px-2 overflow-auto flex flex-col">
+                <p className="mb-2 font-medium">Results: {cardData.length} cards</p>
+                <div>
+                  <div className=" grid grid-cols-5 gap-[2px]">
+                    {
+                      cardData
+                        .filter((card: { name: string; }) => card.name.toLowerCase().includes(inputValue.toLowerCase()))
+                        .filter((card: { color: string; }) => color !== 'all' ? card.color.toLowerCase().includes(color) : card)
+                        .filter((card: { power: string; }) => power !== 'all' ? card.power?.toLowerCase().includes(power) : card)
+                        .filter((card: { counterPower: string; }) => counterPower !== 'all' ? card.counterPower?.toLowerCase().includes(counterPower) : card)
+                        .filter((card: { cost: string; }) => cost !== 'all' ? card.cost?.toLowerCase().includes(cost) : card)
+                        .filter((card: { traits: string; }) => trait !== 'all' ? card.traits?.toLowerCase().includes(trait.toLowerCase()) : card)
 
-                      .filter((card: { cardTypeId: string; }) => cardTypes !== 'all' ? card.cardTypeId?.toLowerCase().includes(cardType[cardTypes.toLowerCase()]) : card)
+                        .filter((card: { cardTypeId: string; }) => cardTypes !== 'all' ? card.cardTypeId?.toLowerCase().includes(cardType[cardTypes.toLowerCase()]) : card)
 
-                      .map((card: CardType) => {
-                        return (
-                          <div key={card.setNumber + card.cardIndex}>
-                            <Card
-                              card={card}
-                              setActive={setActive}
-                              addDeck={addDeck}
-                            />
-                          </div>
-                        )
-                      })
-                  }
+                        .map((card: CardType) => {
+                          return (
+                            <div key={card.setNumber + card.cardIndex}>
+                              <Card
+                                card={card}
+                                setActive={setActive}
+                                addDeck={addDeck}
+                              />
+                            </div>
+                          )
+                        })
+                    }
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className=" w-full my-2">
-            </div>
-          </>
+              <div className=" w-full my-2">
+              </div>
+            </>
+            :
+            <>
+              No card data
+            </>
       }
     </div>
   )
