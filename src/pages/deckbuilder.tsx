@@ -63,6 +63,10 @@ export default function DeckBuilder() {
     setToggle(true);
   }
 
+  const resetDeck = () => {
+    setDeck([]);
+  }
+
   async function createDeck() {
     if (!leader) return;
     if (session) {
@@ -102,6 +106,7 @@ export default function DeckBuilder() {
         setLeader={setLeader}
         onToggle={onToggle}
         session={session}
+        resetDeck={resetDeck}
       />
       <DeckBuilderSearch
         inputValue={inputValue}

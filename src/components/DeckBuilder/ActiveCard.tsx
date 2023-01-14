@@ -6,7 +6,7 @@ type Props = {
 
 export default function ActiveCard({ active }: Props) {
   return (
-    <div className="w-[20%] h-full bg-slate-800 rounded-lg p-2 flex flex-col items-center gap-2 shadow-lg">
+    <div className="w-[20%] h-full bg-slate-50 text-black dark:text-white dark:bg-slate-800 rounded-lg p-2 flex flex-col items-center gap-2 shadow-lg">
       <div className="flex flex-wrap items-center gap-1">
         {
           active
@@ -20,34 +20,41 @@ export default function ActiveCard({ active }: Props) {
               <div className="flex gap-2">
 
               </div>
-              <table>
-                <tr>
-                  <td className="text-sm">
-                    Set Number: {active.setNumber}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Cost: {active.cost}
-                  </td>
-                  <td className="flex gap-1">
-                    Color:           {
-                      active.color.split('/').map((color: string) => {
-                        return (
-                          <p key={color} className='capitalize'>
-                            {color}
-                          </p>
-                        )
-                      })
-                    }
-                  </td>
-                </tr>
+              <table className="text-sm my-1">
+                <tbody>
+                  <tr className="w-full">
+                    <td className="text-sm ">
+                      Set Number: {active.setNumber}
+                    </td>
+                  </tr>
+                  <tr className="w-full">
+                    <td>
+                      Cost: {active.cost}
+                    </td>
+                    <td className="flex gap-1">
+                      Color:           {
+                        active.color.split('/').map((color: string) => {
+                          return (
+                            <p key={color} className='capitalize'>
+                              {color}
+                            </p>
+                          )
+                        })
+                      }
+                    </td>
+                  </tr>
+                  <tr className="w-full">
+                    <td>Power: {active.power}</td>
+                    <td>CP: {active.counterPower}</td>
+                  </tr>
+                  <tr className="w-full">
+                    <td className="w-full">Traits: {active.traits}</td>
+                  </tr>
+                </tbody>
               </table>
-              <div>{active.image}</div>
-              <div className="text-sm">Power: {active.power}</div>
-              <div className="text-sm">Counter Power: {active.counterPower}</div>
-              <div className="text-sm">Traits: {active.traits}</div>
-              <p className="bg-slate-700 overflow-auto  h-[180px] py-2 px-1 rounded-lg text-sm">{active.effect}</p>
+              <div>
+                <p className="dark:bg-slate-700 bg-slate-200 overflow-auto  h-[180px] py-2 px-1 rounded-lg text-sm">{active.effect}</p>
+              </div>
             </div>
             : <></>
         }

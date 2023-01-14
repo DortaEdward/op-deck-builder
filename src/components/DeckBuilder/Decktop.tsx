@@ -14,7 +14,7 @@ type Props = {
   trait: string; setTrait: any;
 }
 
-export default function DeckBuilderSearch({
+export default function Desktop({
   inputValue, setInputValue,
   cardData, setActive,
   addDeck, isLoading,
@@ -25,10 +25,8 @@ export default function DeckBuilderSearch({
   setCounterPower, setTrait,
   cardTypes, setCardTypes,
 }: Props) {
-
-
   return (
-    <div className="w-[30%] dark:bg-slate-800 bg-slate-50 text-black dark:text-white h-full rounded-lg flex flex-col overflow-hidden shadow-lg">
+    <div className="w-[30%] bg-slate-800 h-full rounded-lg flex flex-col overflow-hidden shadow-lg">
       {/* top */}
       <div className="p-2 flex flex-col items-center w-full">
         <div className="w-full p-2">
@@ -37,7 +35,7 @@ export default function DeckBuilderSearch({
             placeholder="Search"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            className="p-2 w-full text-black outline-none rounded bg-slate-100 shadow"
+            className="p-2 w-full text-black outline-none rounded"
           />
           <div className='w-full'>
             <div className='flex gap-2 my-2'>
@@ -46,7 +44,7 @@ export default function DeckBuilderSearch({
                 <select
                   name="Color"
                   id='color'
-                  className='dark:bg-slate-600 bg-slate-400 outline-none cursor-pointer p-1 rounded text-white'
+                  className='bg-slate-600 outline-none cursor-pointer p-1 rounded'
                   value={color}
                   onChange={e => setColor(e.target.value)}
                 >
@@ -63,7 +61,7 @@ export default function DeckBuilderSearch({
                 <label htmlFor="cost">Cost</label>
                 <select
                   name="cost"
-                  className='dark:bg-slate-600 bg-slate-400 text-white outline-none cursor-pointer p-1 rounded'
+                  className='bg-slate-600 outline-none cursor-pointer p-1 rounded'
                   value={cost}
                   onChange={e => setCost(e.target.value)}
                 >
@@ -84,7 +82,7 @@ export default function DeckBuilderSearch({
                 <label htmlFor="cardType">Card Type</label>
                 <select
                   name="cardType"
-                  className='dark:bg-slate-600 bg-slate-400 text-white outline-none cursor-pointer p-1 rounded'
+                  className='bg-slate-600 outline-none cursor-pointer p-1 rounded'
                   value={cardTypes}
                   onChange={e => setCardTypes(e.target.value)}
                 >
@@ -102,7 +100,7 @@ export default function DeckBuilderSearch({
                 <select
                   name="power"
                   id="power"
-                  className='rounded px-1 py-[4px] outline-none dark:bg-slate-600 bg-slate-400 text-white'
+                  className='rounded px-1 py-[4px] outline-none bg-slate-600'
                   value={power}
                   onChange={e => setPower(e.target.value)}
                 >
@@ -126,7 +124,7 @@ export default function DeckBuilderSearch({
                 <select
                   name="counterPower"
                   id="counterPower"
-                  className='rounded px-1 py-[4px] outline-none dark:bg-slate-600 bg-slate-400 text-white'
+                  className='rounded px-1 py-[4px] outline-none bg-slate-600'
                   onChange={e => setCounterPower(e.target.value)}
                   value={counterPower}
                 >
@@ -141,7 +139,7 @@ export default function DeckBuilderSearch({
                 <select
                   name="trait"
                   id="trait"
-                  className='rounded px-1 py-[4px] outline-none dark:bg-slate-600 bg-slate-400 text-white'
+                  className='rounded px-1 py-[4px] outline-none bg-slate-600'
                   onChange={e => setTrait(e.target.value)}
                   value={trait}
                 >

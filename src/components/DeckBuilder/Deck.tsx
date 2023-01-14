@@ -9,6 +9,7 @@ type Props = {
   setLeader: any,
   onToggle:any,
   session:any,
+  resetDeck:any
 }
 
 export default function Deck({
@@ -19,18 +20,22 @@ export default function Deck({
   leader,
   deckTotal,
   session,
+  resetDeck,
   onToggle }: Props) {
   return (
-    <div className="w-[50%] h-full bg-slate-800 rounded-lg p-2 overflow-auto shadow-lg flex flex-col justify-between">
+    <div className="w-[50%] h-full bg-slate-50 text-black dark:text-white dark:bg-slate-800 rounded-lg p-2 overflow-auto shadow-lg flex flex-col justify-between">
       <div>
         <div className="flex mt-1 mb-3 justify-between items-center">
           <div className="flex gap-4">
             <p>Deck Total: <span className="font-bold">{deckTotal}</span></p>
-            <p>Leader: <span className="font-bold">0</span></p>
+            {/* <p>Leader: <span className="font-bold">0</span></p>
             <p>Characters: <span className="font-bold">0</span></p>
-            <p>Event: <span className="font-bold">0</span></p>
+            <p>Event: <span className="font-bold">0</span></p> */}
           </div>
-          <button type="button" onClick={()=>onToggle()} className={`rounded outline px-4 py-1 ${leader && deckTotal === 50 && session ? `opacity-100` :  `opacity-40`}`}>Create Deck</button>
+          <div className="flex gap-2">
+            <button type="button" className={`rounded outline px-2 py-1 text-red-600`} onClick={()=>resetDeck()}>Reset Deck</button>
+            <button type="button" onClick={()=>onToggle()} className={`rounded outline px-4 py-1 ${leader && deckTotal === 50 && session ? `opacity-100` :  `opacity-40`}`}>Create Deck</button>
+          </div>
         </div>
         <div className="grid lg:grid-cols-10 md:grid-cols-7 sm:grid-cols-5 grid-rows-5 gap-1">
           {
