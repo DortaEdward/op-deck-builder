@@ -1,7 +1,7 @@
 import type { CardType, DeckType } from "../../types/DeckBuilder";
 import Card from "../Card";
 type Props = {
-  deck: DeckType,
+  deck: any,
   setActive?: any,
   removeFromDeck: any,
   leader: CardType,

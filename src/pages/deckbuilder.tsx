@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // Types
 import type { CardType } from '../types/DeckBuilder';
@@ -14,6 +14,7 @@ import { useSession } from 'next-auth/react';
 
 // Component
 export default function DeckBuilder() {
+
   // Internal State
   const [deck, setDeck] = useState<CardType[]>([]);
   const [inputValue, setInputValue] = useState('')
