@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Card from "../../components/Card";
 import Image from "next/image";
 import { api } from "../../utils/api";
+import DeckViewer from "../../components/DeckViewer/DeckViewer";
 export default function Deck() {
 
   const router = useRouter();
@@ -20,16 +21,8 @@ export default function Deck() {
           <Image src={`/images/${data?.leaderImage}`} width={60} height={180} alt='Leader' />
         </div>
       </div>
-      <div className="grid grid-cols-10 gap-1">
-        {
-
-          data?.deck.map(card => {
-            return (
-              <Card key={card.id} card={card} />
-            )
-          })
-        }
-      </div>
+      <DeckViewer data={data} />
+    
       {/* {JSON.stringify(data)} */}
     </div>
   )

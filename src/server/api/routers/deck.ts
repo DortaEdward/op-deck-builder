@@ -49,5 +49,15 @@ export const deckRouter = createTRPCRouter({
           id: input
         }
       })
+    }),
+
+    getUsersDecks: publicProcedure.input(
+      z.string()
+    ).query(({ctx, input}) => {
+      return ctx.prisma.deck.findMany({
+        where:{
+          userId: input
+        }
+      })
     })
 }); 

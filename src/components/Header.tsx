@@ -15,7 +15,7 @@ export default function Header() {
         <div className='flex items-center justify-center gap-3'>
           <div className='md:flex hidden items-center justify-center gap-3 mr-3'>
             <Link href={'/deckbuilder'} className='hover:underline underline-offset-8 dark:text-gray-400 transition font-medium'>Deck Builder</Link>
-            <Link href={'/database'} className='hover:underline underline-offset-8 dark:text-gray-400 transition font-medium'>Database</Link>
+            {/* <Link href={'/database'} className='hover:underline underline-offset-8 dark:text-gray-400 transition font-medium'>Database</Link> */}
             <Link href={'/decks'} className='hover:underline underline-offset-8 dark:text-gray-400 transition font-medium' >Decks</Link>
           </div>
           <div className='relative'>
@@ -45,7 +45,7 @@ export default function Header() {
                             <Link onClick={() => setToggle(false)} href={'/decks'} className='py-4 hover:underline'>Decks</Link>
                           </div>
 
-                          <Link onClick={() => setToggle(false)} href={'/decks'} className='py-4 hover:underline'>View Decks</Link>
+                          <Link onClick={() => setToggle(false)} href={`/user/${session.user?.id}`} className='py-4 hover:underline'>View Decks</Link>
                           <Link onClick={() => setToggle(false)} href={'/settings'} className='py-4 hover:underline'>Setting</Link>
                           <div onClick={() => signOut()} className='py-4 hover:underline'>Sign Out</div>
                         </div>
