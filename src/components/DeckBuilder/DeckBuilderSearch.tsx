@@ -177,6 +177,9 @@ export default function DeckBuilderSearch({
               <div className="px-2 overflow-auto flex flex-col">
                 <p className="mb-2 font-medium">Results: {cardData.length} cards</p>
                 <div>
+                    {
+                      JSON.stringify(cardData[0].cardType.name)
+                    }
                   <div className=" grid grid-cols-5 gap-[2px]">
                     {
                       cardData
@@ -186,8 +189,7 @@ export default function DeckBuilderSearch({
                         .filter((card: { counterPower: string; }) => counterPower !== 'all' ? card.counterPower?.toLowerCase().includes(counterPower) : card)
                         .filter((card: { cost: string; }) => cost !== 'all' ? card.cost?.toLowerCase().includes(cost) : card)
                         .filter((card: { traits: string; }) => trait !== 'all' ? card.traits?.toLowerCase().includes(trait.toLowerCase()) : card)
-
-                        .filter((card: { cardTypeId: string; }) => cardTypes !== 'all' ? card.cardTypeId?.toLowerCase().includes(cardType[cardTypes.toLowerCase()]) : card)
+                        // .filter((card: { name: string; }) => card.cardType !== 'all' ? card.cardType.name?.toLowerCase().includes(cardType[cardTypes.toLowerCase()]) : card)
 
                         .map((card: CardType) => {
                           return (
@@ -196,7 +198,7 @@ export default function DeckBuilderSearch({
                                 card={card}
                                 setActive={setActive}
                                 addDeck={addDeck}
-                              />
+                              />                        
                             </div>
                           )
                         })

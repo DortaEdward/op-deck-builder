@@ -26,7 +26,11 @@ export const cardRouter = createTRPCRouter({
     //   take:z.number()
     // }))
     .query(({ ctx }) => {
-      return ctx.prisma.card.findMany({});
+      return ctx.prisma.card.findMany({
+        include:{
+          cardType: true
+        }
+      });
     }),
 
   // getFilteredCards: publicProcedure
