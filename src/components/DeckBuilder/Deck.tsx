@@ -45,7 +45,7 @@ export default function Deck({
                 return (
                   <div key={i}>
                     <Card
-                      card={deck[key]}
+                      card={deck[key as keyof typeof deck]}
                       removeFromDeck={removeFromDeck}
                       setActive={setActive}
                     />

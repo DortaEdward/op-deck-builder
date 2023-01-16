@@ -28,7 +28,8 @@ export default function User() {
                   <div className="flex flex-col justify-between ml-1">
                     <div className="flex flex-col gap-2">
                       <p className="text-lg">{deck.name}</p>
-                      <p>{deck.description?.length < 40 ? deck.description : `${deck.description?.slice(0, 47)} ...`}</p>
+                      {/* <p>{deck.description?.length < 40 ? deck.description : `${deck.description?.slice(0, 47)} ...`}</p> */}
+                      <p>{deck.description}</p>
                     </div>
                     <Link href={`/decks/${deck.id}`} className="relative">
 
