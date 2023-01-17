@@ -46,9 +46,12 @@ export default function ActiveCard({ active }: Props) {
                   <tr className="w-full">
                     <td>Power: {active.power}</td>
                     <td>CP: {active.counterPower}</td>
+
+                    {/* <p>{active.cardTypeId}</p> */}
                   </tr>
                   <tr className="w-full">
                     <td className="w-full">Traits: {active.traits}</td>
+                    {/* <td>Card Type: {active.cardType?.name}</td> */}
                   </tr>
                 </tbody>
               </table>

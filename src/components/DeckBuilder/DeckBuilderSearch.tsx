@@ -1,6 +1,4 @@
 import { traits } from '../../data/trait';
-import { cardType } from '../../data/cartType';
-import type { CardType } from '../../types/DeckBuilder';
 import Card from '../Card';
 type Props = {
   inputValue: string, setInputValue: any,
@@ -186,19 +184,19 @@ export default function DeckBuilderSearch({
                         .filter((card: { name: string; }) => card.name.toLowerCase().includes(inputValue.toLowerCase()))
                         .filter((card: { color: string; }) => color !== 'all' ? card.color.toLowerCase().includes(color) : card)
                         .filter((card: { power: string; }) => power !== 'all' ? card.power?.toLowerCase().includes(power) : card)
-                        .filter((card: { counterPower: string; }) => counterPower !== 'all' ? card.counterPower?.toLowerCase().includes(counterPower) : card)
+                        // .filter((card: { counterPower: string; }) => counterPower !== 'all' ? card.counterPower?.toLowerCase().includes(counterPower) : card)
                         .filter((card: { cost: string; }) => cost !== 'all' ? card.cost?.toLowerCase().includes(cost) : card)
                         .filter((card: { traits: string; }) => trait !== 'all' ? card.traits?.toLowerCase().includes(trait.toLowerCase()) : card)
-                        // .filter((card: { name: string; }) => card.cardType !== 'all' ? card.cardType.name?.toLowerCase().includes(cardType[cardTypes.toLowerCase()]) : card)
+                        .filter((card: { cardType: string; }) => cardTypes !== 'all' ? card.cardType.name?.toLowerCase().includes(cardTypes.toLowerCase()) : card)
 
-                        .map((card: CardType) => {
+                        .map((card: any) => {
                           return (
                             <div key={card.setNumber + card.cardIndex}>
                               <Card
                                 card={card}
                                 setActive={setActive}
                                 addDeck={addDeck}
-                              />                        
+                              />
                             </div>
                           )
                         })
