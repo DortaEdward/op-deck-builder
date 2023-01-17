@@ -1,10 +1,10 @@
 import Card from "../Card"
 import type { CardType } from "../../types/DeckBuilder"
-type Props = {
-  active: CardType,
-}
+// type Props = {
+//   active: CardType,
+// }
 
-export default function ActiveCard({ active }: Props) {
+export default function ActiveCard({ active }: any) {
   return (
     <div className="w-[20%] h-full bg-slate-50 text-black dark:text-white dark:bg-slate-800 rounded-lg p-2 flex flex-col items-center gap-2 shadow-lg">
       <div className="flex flex-wrap items-center gap-1">
