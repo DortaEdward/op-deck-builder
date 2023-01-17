@@ -1,4 +1,5 @@
 export type CardType = {
+  id: string;
   name: string;
   cardIndex: string;
   setId: string;
