@@ -187,7 +187,7 @@ export default function DeckBuilderSearch({
                         // .filter((card: { counterPower: string; }) => counterPower !== 'all' ? card.counterPower?.toLowerCase().includes(counterPower) : card)
                         .filter((card: { cost: string; }) => cost !== 'all' ? card.cost?.toLowerCase().includes(cost) : card)
                         .filter((card: { traits: string; }) => trait !== 'all' ? card.traits?.toLowerCase().includes(trait.toLowerCase()) : card)
-                        .filter((card: { cardType: string; }) => cardTypes !== 'all' ? card.cardType.name?.toLowerCase().includes(cardTypes.toLowerCase()) : card)
+                        // .filter((card: { cardType: string; }) => cardTypes !== 'all' ? card.cardType?.name.includes(cardTypes.toLowerCase()) : card)
 
                         .map((card: any) => {
                           return (

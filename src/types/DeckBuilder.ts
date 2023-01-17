@@ -14,8 +14,8 @@ export type CardType = {
   image: string;
   cardTypeId: string;
   rarityId: string;
-  cardType?: {
-    name:string
+  cardType: {
+    name: string;
   }
 }
 
