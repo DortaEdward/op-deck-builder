@@ -14,7 +14,7 @@ export default function Decks() {
         Filter Section
       </div>
       <div>
-        <DeckViewer />
+        {/* <DeckViewer /> */}
         {
           data?.map(deck => {
             return (
@@ -29,7 +29,7 @@ export default function Decks() {
                   <p>{deck.name}</p>
                   <p>{deck.description}</p>
                   <div className="flex gap-1 items-center">
-                    <img src={deck.author.image} alt='Deck Owner' className="rounded-full w-10" />
+                    <img src={deck.author.image as string} alt='Deck Owner' className="rounded-full w-10" />
                     <p>{deck.author.name}</p>
                   </div>
 
