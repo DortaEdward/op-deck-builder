@@ -8,7 +8,7 @@ export default function Deck() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, isLoading } = api.deck.getDeck.useQuery(id);
+  const { data, isLoading } = api.deck.getDeck.useQuery(id as string);
 
   if (isLoading) return <>Loading</>
 
