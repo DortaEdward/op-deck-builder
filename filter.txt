@@ -1,0 +1,1 @@
+// .filter((card: { cardType: string; }) => cardTypes !== 'all' ? card.cardType?.name.includes(cardTypes.toLowerCase()) : card)
